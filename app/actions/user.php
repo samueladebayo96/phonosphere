@@ -88,7 +88,7 @@ if (!is_null($action) && $action === "log_in") {
 
 
 /**
- *  Condition pour se changer de mot de passe (utilisé sur la page mot de passe oublié et profile)
+ *  Condition pour changer de mot de passe (utilisé sur la page mot de passe oublié et profile)
  */
 
 if (!is_null($action) && $action === "reset_password") {
@@ -128,6 +128,11 @@ if (!is_null($action) && $action === "reset_password") {
     }
 
 }
+
+/**
+ *  Condition pour changer de mot de passe (utilisé sur la page mot de passe oublié)
+ */
+
 if (!is_null($action) && $action === "update_password") {
     $username = htmlspecialchars(strtolower(trim($_POST["username"])));
     $fields = ["username" => $username];

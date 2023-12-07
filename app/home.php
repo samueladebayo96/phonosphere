@@ -1,4 +1,4 @@
-<div class="flex justify-center items-center min-h-full">
-    <div class="flex flex-col w-full max-w-xl gap-10 max-[550px]:max-w-md">
+<main class="flex justify-center flex-col items-center md:h-screen">
+    <div class="text-center border-b border-tertiary border-opacity-40 mb-6 w-full">
     </div>
-</div>
+</main>
