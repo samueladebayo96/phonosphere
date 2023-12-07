@@ -1,7 +1,3 @@
-<!-- 
-    View profile : la page du profile de l'utilisateur
- -->
-
 <?php $contacts = getContactsByUserId($_SESSION["user_id"]); ?>
 
 <main class="flex justify-center flex-col items-center md:h-screen">

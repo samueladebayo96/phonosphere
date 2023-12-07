@@ -28,6 +28,10 @@ function checkContactFields($fields): array {
     return $err;
 }
 
+/**
+ *  Condition pour appeler la fonction qui permet d'insérer un nouveau contact dans la base de donnée
+ */
+
 if(!is_null($action) && $action === "add_contact") {
     $lastname = htmlspecialchars($_POST["lastname"]);
     $firstname = htmlspecialchars($_POST["firstname"]);
@@ -47,6 +51,10 @@ if(!is_null($action) && $action === "add_contact") {
     }
 }
 
+/**
+ *  Condition pour appeler la fonction qui permet de supprimer un contact de la base de donnée
+ */
+
 if(!is_null($action) && $action === "remove_contact") {
     $contact_id = $_GET["id"];
     $user_id = $_SESSION["user_id"];
@@ -59,27 +67,9 @@ if(!is_null($action) && $action === "remove_contact") {
     }
 }
 
-if(!is_null($action) && $action === "update") {
-    if(!is_numeric($_GET["id"])) {
-        $errors[] = "Identifiant introuvable";
-    }
-    $contact_id = htmlspecialchars(trim($_GET["id"]));
-    $lastname = htmlspecialchars(trim($_POST["lastname"]));
-    $firstname = htmlspecialchars(trim($_POST["firstname"]));
-    $phone_number = htmlspecialchars(trim($_POST["phone_number"]));
-    $address = htmlspecialchars($_POST["address"]);
-    $fields = ["lastname" => $lastname, "firstname" => $firstname, "phone_number" => $phone_number, "address" => $address];
-    $errors = checkContactFields($fields);
-    if(empty($errors)) {
-        $success = updateContact($contact_id, $lastname, $firstname, $phone_number, $address);
-        if(!$success) {
-            $errors[] = "Numéro déjà enregistré sur un autre utilisateur";
-        }
-    }
-    if($success) {
-        header("Location: contacts");
-    }
-}
+/**
+ *  Condition pour appeler la fonction qui permet de modifier un contact de la base de donnée
+ */
 
 if(!is_null($action) && $action === "update") {
     if(!is_numeric($_GET["id"])) {
@@ -102,6 +92,10 @@ if(!is_null($action) && $action === "update") {
         header("Location: contacts");
     }
 }
+
+/**
+ *  Condition pour appeler la fonction qui permet d'import des contacts dans la base de donnée
+ */
 
 if(isset($_FILES["import_contacts"]) && $_FILES["import_contacts"]["error"] == UPLOAD_ERR_OK) {
     $tmp_file = $_FILES["import_contacts"]["tmp_name"];

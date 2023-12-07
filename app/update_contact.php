@@ -1,7 +1,3 @@
-<!-- 
-    View update_contact : la page pour modifier un contact
- -->
-
 <?php $contact = getContactById($_GET["id"]); ?>
 
 <main class="flex justify-center flex-col items-center md:h-screen">

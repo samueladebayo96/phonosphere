@@ -64,9 +64,8 @@ if (!is_null($action) && $action === "add_user") {
 }
 
 /**
- *  Condition pour se connecter au site avec un nom d'utilisateur
+ *  Condition pour se connecter au site avec un nom d'utilisateur et un mot de passe
  */
-
 
 if (!is_null($action) && $action === "log_in") {
     $username = htmlspecialchars(strtolower(trim($_POST["username"])));
@@ -91,7 +90,6 @@ if (!is_null($action) && $action === "log_in") {
 /**
  *  Condition pour se changer de mot de passe (utilisé sur la page mot de passe oublié et profile)
  */
-
 
 if (!is_null($action) && $action === "reset_password") {
     if (!isset($_SESSION["user_id"])) {
