@@ -2,54 +2,54 @@
     View register_contact : la page pour ajouter des contacts
  -->
 
- <div class="flex justify-center items-center min-h-full">
-    <div class="flex flex-col w-full max-w-xl gap-10 max-sm:max-w-lg max-[550px]:max-w-md">
-        <h1 class="text-6xl font-bold font-['Roboto Slab'] text-gray-50 text-center max-sm:text-4xl">Ajouter un contact</h1>
-        <div
-            class="flex flex-col justify-center items-center rounded-3xl py-8 border border-black border-opacity-10 bg-black bg-opacity-30">
-            <?php if (!is_null($action) && $action === "add_contact" && !$success): ?>
-                <ul
-                    class="text-sm text-center font-medium font-['Roboto Slab'] text-red-400 bg-black bg-opacity-30 rounded-lg px-10 py-2 mb-6">
-                    <?php foreach ($errors as $error): ?>
-                        <li>
-                            <?= $error ?>
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
-            <?php endif; ?>
-            <form action="./register_contact?action=add_contact" method="POST"
-                class="flex flex-col items-center justify-center gap-6 max-w-2xl">
-                <div class="grid grid-cols-2 gap-6 mb-6">
-                    <div>
-                        <label for="lastname" class="block mb-2 text-md font-medium text-gray-50 dark:text-gray-50">Nom de famille :</label>
-                        <input type="text" name="lastname"
-                            class="bg-gray-50 text-black text-sm focus:outline-none rounded-lg block w-full p-2.5  border border-opacity-20" required>
-                    </div>
-                    <div>
-                        <label for="firstname" class="block mb-2 text-md font-medium text-gray-50 dark:text-gray-50">Prénom :</label>
-                        <input type="text" name="firstname"
-                            class="bg-gray-50 text-black text-sm focus:outline-none rounded-lg block w-full p-2.5  border border-opacity-20" required>
-                    </div>
-                    <div>
-                        <label for="phone_number"
-                            class="block mb-2 text-md font-medium text-gray-50 dark:text-gray-50">Numéro de téléphone :</label>
-                        <input type="number" name="phone_number"
-                            class="bg-gray-50 text-black text-sm focus:outline-none rounded-lg block w-full p-2.5  border border-opacity-20" required>
-                    </div>
-                    <div>
-                        <label for="address"
-                            class="block mb-2 text-md font-medium text-gray-50 dark:text-gray-50">Adresse
-                            :</label>
-                        <input type="text" name="address"
-                            class="bg-gray-50 text-black text-sm focus:outline-none rounded-lg block w-full p-2.5  border border-opacity-20" required>
-                    </div>
-                    <div class="flex items-end">
-                        <button type="submit"
-                            class="flex justify-center items-center border border-black bg-black bg-opacity-50 hover:bg-opacity-40 focus:outline-none rounded-2xl w-full p-2.5"><img
-                                src="./assets/img/arrow.svg" alt="arrow" /></button>
-                    </div>
-                </div>
-            </form>
-        </div>
+<main class="flex justify-center flex-col items-center md:h-screen">
+    <div class="text-center border-b border-tertiary border-opacity-40 mb-6 w-full">
     </div>
-</div>
+    <div
+        class="flex flex-col justify-center items-center bg-card border border-gray-700 border-opacity-20 rounded-lg  shadow-card_shadow shadow-gray-900 px-8 py-12">
+        <span
+            class="text-center text-2xl font-semibold bg-quaternary border border-gray-700 rounded-xl px-4 py-2 mb-6">Ajouter
+            un contact</span>
+        <?php if(!is_null($action) && $action === "add_contact" && !$success): ?>
+            <ul class="text-sm text-center font-medium text-red-300 bg-red-900 rounded-lg px-10 py-2 mb-6">
+                <?php foreach($errors as $error): ?>
+                    <li>
+                        <?= $error ?>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        <?php endif; ?>
+        <form action="./register_contact?action=add_contact" method="POST" class="">
+            <div class="grid grid-cols-2 grid-rows-2 gap-2">
+                <div class="flex flex-col gap-1 mb-2">
+                    <label for="lastname" class="font-medium">Nom de famille :</label>
+                    <input type="text" name="lastname"
+                        class="text-gray-500 bg-white border border-gray-300 rounded-md px-2 h-8 focus:outline-none"
+                        required>
+                </div>
+                <div class="flex flex-col gap-1 mb-2">
+                    <label for="firstname" class="font-medium">Prénom :</label>
+                    <input type="text" name="firstname"
+                        class="text-gray-500 bg-white border border-gray-300 rounded-md px-2 h-8 focus:outline-none"
+                        required>
+                </div>
+                <div class="flex flex-col gap-1 mb-2">
+                    <label for="phone_number" class="font-medium">Numéro de téléphone :</label>
+                    <input type="tel" name="phone_number"
+                        class="text-gray-500 bg-white border border-gray-300 rounded-md px-2 h-8 focus:outline-none"
+                        required>
+                </div>
+                <div class="flex flex-col gap-1 mb-2">
+                    <label for="address" class="font-medium">Adresse :</label>
+                    <input type="text" name="address"
+                        class="text-gray-500 bg-white border border-gray-300 rounded-md px-2 h-8 focus:outline-none"
+                        required>
+                </div>
+            </div>
+            <div class="flex items-center justify-center">
+                <button type="submit" class="bg-btn border border-gray-100 rounded-lg px-10 h-8 mb-4 mt-4"><img
+                        src="../assets/img/arrow.svg" alt="arrow" class="max-w-img min-w-img"></button>
+            </div>
+        </form>
+    </div>
+</main>

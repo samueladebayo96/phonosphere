@@ -10,8 +10,7 @@
  *  return : cette fonction retourne un tableau d'erreurs si il y en a
  */
 
-function checkContactFields($fields): array
-{
+function checkContactFields($fields): array {
     $err = [];
     $errorMessages = [
         "lastname" => "Le nom de famille est vide",
@@ -20,8 +19,8 @@ function checkContactFields($fields): array
         "address" => "L'adresse est vide",
     ];
 
-    foreach ($fields as $key => $value) {
-        if (!isset($value) || empty($value)) {
+    foreach($fields as $key => $value) {
+        if(!isset($value) || empty($value)) {
             $err[] = $errorMessages[$key];
         }
     }
@@ -29,56 +28,105 @@ function checkContactFields($fields): array
     return $err;
 }
 
-if (!is_null($action) && $action === "add_contact") {
+if(!is_null($action) && $action === "add_contact") {
     $lastname = htmlspecialchars($_POST["lastname"]);
     $firstname = htmlspecialchars($_POST["firstname"]);
-    $phone_number = !is_numeric(htmlspecialchars(trim($_POST["phone_number"]))) ? $errors[] = "Le numéro entré ne contient pas de nombre" : htmlspecialchars(trim($_POST["phone_number"]));
+    $phone_number = htmlspecialchars(trim($_POST["phone_number"]));
     $address = htmlspecialchars($_POST["address"]);
     $fields = ["lastname" => $lastname, "firstname" => $firstname, "phone_number" => $phone_number, "address" => $address];
     $user_id = $_SESSION["user_id"];
     $errors = checkContactFields($fields);
-    if (empty($errors)) {
+    if(empty($errors)) {
         $success = registerContact($lastname, $firstname, $phone_number, $address, $user_id);
-        if (!$success) {
+        if(!$success) {
             $errors[] = "Numéro déjà enregistré";
         }
     }
-    if ($success) {
+    if($success) {
         header("Location: contacts");
     }
 }
 
-if (!is_null($action) && $action === "remove_contact") {
+if(!is_null($action) && $action === "remove_contact") {
     $contact_id = $_GET["id"];
     $user_id = $_SESSION["user_id"];
     $success = removeContact($contact_id, $user_id);
-    if (!$success) {
+    if(!$success) {
         $errors[] = "Le contact n'existe pas";
     }
-    if ($success) {
+    if($success) {
         header("Refresh: 0; url=contacts");
     }
 }
 
-if (!is_null($action) && $action === "update") {
-    if (!is_numeric($_GET["id"])) {
+if(!is_null($action) && $action === "update") {
+    if(!is_numeric($_GET["id"])) {
         $errors[] = "Identifiant introuvable";
     }
     $contact_id = htmlspecialchars(trim($_GET["id"]));
     $lastname = htmlspecialchars(trim($_POST["lastname"]));
     $firstname = htmlspecialchars(trim($_POST["firstname"]));
-    $phone_number = !is_numeric(htmlspecialchars(trim($_POST["phone_number"]))) ? $errors[] = "Le numéro entré ne contient pas de nombre" : htmlspecialchars(trim($_POST["phone_number"]));
+    $phone_number = htmlspecialchars(trim($_POST["phone_number"]));
     $address = htmlspecialchars($_POST["address"]);
     $fields = ["lastname" => $lastname, "firstname" => $firstname, "phone_number" => $phone_number, "address" => $address];
     $errors = checkContactFields($fields);
-    if (empty($errors)) {
+    if(empty($errors)) {
         $success = updateContact($contact_id, $lastname, $firstname, $phone_number, $address);
-        if (!$success) {
+        if(!$success) {
             $errors[] = "Numéro déjà enregistré sur un autre utilisateur";
         }
     }
-    if ($success) {
+    if($success) {
         header("Location: contacts");
     }
 }
+
+if(!is_null($action) && $action === "update") {
+    if(!is_numeric($_GET["id"])) {
+        $errors[] = "Identifiant introuvable";
+    }
+    $contact_id = htmlspecialchars(trim($_GET["id"]));
+    $lastname = htmlspecialchars(trim($_POST["lastname"]));
+    $firstname = htmlspecialchars(trim($_POST["firstname"]));
+    $phone_number = htmlspecialchars(trim($_POST["phone_number"]));
+    $address = htmlspecialchars($_POST["address"]);
+    $fields = ["lastname" => $lastname, "firstname" => $firstname, "phone_number" => $phone_number, "address" => $address];
+    $errors = checkContactFields($fields);
+    if(empty($errors)) {
+        $success = updateContact($contact_id, $lastname, $firstname, $phone_number, $address);
+        if(!$success) {
+            $errors[] = "Numéro déjà enregistré sur un autre utilisateur";
+        }
+    }
+    if($success) {
+        header("Location: contacts");
+    }
+}
+
+if(isset($_FILES["import_contacts"]) && $_FILES["import_contacts"]["error"] == UPLOAD_ERR_OK) {
+    $tmp_file = $_FILES["import_contacts"]["tmp_name"];
+    $contacts = array_map('str_getcsv', file($tmp_file));
+    unset($contacts[0]);
+    sort($contacts);
+    foreach($contacts as $contact) {
+        $lastname = htmlspecialchars(trim($contact[1]));
+        $firstname = htmlspecialchars(trim($contact[2]));
+        $phone_number = htmlspecialchars(trim($contact[3]));
+        $address = htmlspecialchars(($contact[4]));
+        $user_id = $_SESSION["user_id"];
+        $fields = ["lastname" => $contact[1], "firstname" => $contact[2], "phone_number" => $contact[3], "address" => $contact[4]];
+        $errors = checkContactFields($fields);
+        if(empty($errors)) {
+            $success = registerContact($lastname, $firstname, $phone_number, $address, $user_id);
+            if(!$success) {
+                $errors[] = "Numéro déjà enregistré";
+                break;
+            }
+        }
+        if($success) {
+            continue;
+        }
+    }
+}
+
 ?>

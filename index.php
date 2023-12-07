@@ -4,7 +4,6 @@
  * L'index sert de "router" pour afficher les différentes pages
  */
 
-
 if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
 }
@@ -28,8 +27,9 @@ $page = $_GET["p"] ?? "home";
 $page = $pages[$page] ?? "404";
 
 /**
- * Déconnexion sans page de déconnexion
+ * Déconnexion
  */
+
 if ($page == "logout") {
     session_destroy();
     header("Location: home");
@@ -92,6 +92,8 @@ if ($page == "update_password" && !isset($_SESSION["username"])) {
     $page = "lost_password";
 }
 
+
+$title = "Phonosphere - " . strtoupper($page);
 
 require_once("./app/app.php");
 require_once("./app/layouts/template.php");

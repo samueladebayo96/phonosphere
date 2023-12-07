@@ -33,9 +33,15 @@ function ifExistInContactsTable($value, $column): bool
     return is_numeric(array_search($value, array_column($contacts, $column)));
 }
 
+function ifContactExistInBook($user_id, $value, $column): bool
+{
+    $contacts = getContactsByUserId($user_id);
+    return is_numeric(array_search($value, array_column($contacts, $column)));
+}
+
 function registerContact($lastname, $firstname, $phone_number, $address, $user_id): bool
 {
-    if (ifExistInContactsTable($phone_number, "phone_number")) {
+    if (ifContactExistInBook($user_id, $phone_number, "phone_number")) {
         return false;
     }
     global $conn;

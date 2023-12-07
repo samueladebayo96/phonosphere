@@ -1,32 +1,20 @@
-<div class="w-full flex justify-center shadow-2xl fixed z-10 bg-black bg-opacity-30">
-    <div
-        class="flex justify-between w-full max-w-7xl items-center gap-3 mb-3 mt-2 max-xl:max-w-5xl max-lg:max-w-3xl max-md:max-w-xl max-sm:max-w-lg max-[550px]:max-w-md">
-
-
-        <div class="flex items-center gap-6">
-            <div class="border border-black bg-black bg-opacity-20 rounded-2xl px-2 py-2"><a href="./"><img
-                        src="./assets/img/logo.svg" alt="logo" width="60" height="60" /></a></div>
-            <p class="text-2xl font-bold font-['Roboto Slab'] text-gray-50 max-sm:text-lg max-[550px]:text-sm">
-                Phonosphere
-            </p>
-        </div>
-        <!-- MENU -->
-        <div class="flex justify-center items-center">
-            <ul class="flex justify-center gap-8">
-                <li class="text-gray-50 text-1xl font-medium font-['Roboto Slab']"><a href="./home" class="">Accueil</a>
-                </li>
-                <?php if (!isset($_SESSION["user_id"])): ?>
-                    <li class="text-gray-50 text-1xl font-medium font-['Roboto Slab']"><a href="./login"
-                            class="">Connexion</a></li>
-                <?php else: ?>
-                    <li class="text-gray-50 text-1xl font-medium font-['Roboto Slab']"><a href="./profile"
-                            class="">Profile</a></li>
-                    <li class="text-gray-50 text-1xl font-medium font-['Roboto Slab']"><a href="./contacts"
-                            class="">Contacts</a></li>
-                    <li class="text-gray-50 text-1xl font-medium font-['Roboto Slab']"><a href="./logout"
-                            class="">Déconnexion</a></li>
-                <?php endif; ?>
-            </ul>
+<nav
+    class="flex flex-col items-center p-6 mb-8 bg-secondary md:flex-row md:justify-between md:px-6 md:py-6 md:mb-0 md:sticky md:top-0 md:w-full">
+    <div class="flex items-center text-center gap-2 mb-6 md:mb-0">
+        <a href="#"><img src="../assets/img/logo.svg" alt="logo" class="max-w-logo min-w-logo"></a>
+        <div class="text-center">
+            <h1 class="text-2xl font-bold">Phonosphere</h1>
         </div>
     </div>
-</div>
+    <ul class="text-center font-semibold md:flex md:flex-row md:gap-8">
+        <?php if(!isset($_SESSION["user_id"])): ?>
+            <li class="mb-2 md:mb-0"><a href="./home">Accueil</a></li>
+            <li class="mb-2 md:mb-0"><a href="./login">Connexion</a></li>
+        <?php else: ?>
+            <li class="mb-2 md:mb-0"><a href="./home">Accueil</a></li>
+            <li class="mb-2 md:mb-0"><a href="./profile">Profile</a></li>
+            <li class="mb-2 md:mb-0"><a href="./contacts">Contacts</a></li>
+            <li class="mb-2 md:mb-0"><a href="./logout">Déconnexion</a></li>
+        <?php endif; ?>
+    </ul>
+</nav>

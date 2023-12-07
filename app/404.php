@@ -1,7 +1,12 @@
-<div class="flex justify-center items-center min-h-full">
-    <div class="flex flex-col w-full max-w-xl gap-10 max-[550px]:max-w-md">
-        <div class="border-black bg-black bg-opacity-20 rounded-md py-10">
-            <h1 class="text-6xl font-bold font-['Roboto Slab'] text-gray-50 text-center max-sm:text-4xl">ERROR 404</h1>
-        </div>
+<!-- 
+    View 404 : la page d'erreur
+ -->
+<main class="flex justify-center flex-col items-center md:h-screen">
+    <div class="text-center border-b border-tertiary border-opacity-40 mb-6 w-full">
     </div>
-</div>
+    <div
+        class="flex justify-center items-center flex-col px-24 py-16 bg-card border border-gray-700 border-opacity-20 rounded-lg shadow-card_shadow shadow-gray-900">
+        <span class="text-2xl font-semibold bg-quaternary border border-gray-700 rounded-xl px-4 py-2 mb-6">ERROR
+            404</span>
+    </div>
+</main>
